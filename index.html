@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>STAR STORE</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+background:#080d19;
+color:#fff;
+font-family:Arial,Tahoma,sans-serif;
+}
+
+header{
+background:#0b1020;
+padding:20px;
+text-align:center;
+border-bottom:1px solid #293653;
+}
+
+.logo{
+font-size:27px;
+font-weight:bold;
+color:#ffc52b;
+}
+
+.tabs{
+display:flex;
+gap:8px;
+padding:12px;
+background:#090e1b;
+overflow-x:auto;
+position:sticky;
+top:0;
+z-index:10;
+}
+
+.tabs button{
+min-width:125px;
+padding:13px;
+border-radius:25px;
+border:1px solid #39445e;
+background:#171f32;
+color:#fff;
+font-weight:bold;
+}
+
+.tabs button.active{
+background:#ffc52b;
+color:#111;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+padding:14px;
+}
+
+.player{
+background:#141d31;
+border:1px solid #293653;
+border-radius:15px;
+padding:15px;
+margin-bottom:15px;
+}
+
+.player input{
+width:100%;
+padding:14px;
+margin-top:10px;
+border-radius:10px;
+border:1px solid #3b4660;
+background:#080e1b;
+color:#fff;
+font-size:16px;
+outline:none;
+}
+
+.section{
+display:none;
+}
+
+.section.active{
+display:block;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:13px;
+}
+
+.card{
+background:#151e34;
+border:1px solid #293653;
+border-radius:17px;
+overflow:hidden;
+}
+
+.picture{
+height:145px;
+background:linear-gradient(145deg,#293a63,#11182b);
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* شكل UC */
+
+.uc{
+position:relative;
+width:140px;
+height:100px;
+}
+
+.uccoin{
+position:absolute;
+width:80px;
+height:43px;
+border-radius:50%;
+background:linear-gradient(#fff1a3,#d59c20);
+border:4px solid #886519;
+color:#3e2e09;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:20px;
+box-shadow:0 6px 0 #604711;
+}
+
+.u1{left:30px;top:4px}
+.u2{left:5px;top:42px;transform:rotate(-12deg)}
+.u3{left:58px;top:48px;transform:rotate(12deg)}
+
+/* شكل حزم الازدهار */
+
+.growthBox{
+width:120px;
+height:95px;
+border-radius:12px;
+position:relative;
+background:linear-gradient(145deg,#dba72e,#69470e);
+border:3px solid #f5d16b;
+box-shadow:0 8px 15px #0008;
+}
+
+.growthBox:before{
+content:"";
+position:absolute;
+left:46px;
+top:0;
+width:20px;
+height:100%;
+background:#ffe89a;
+}
+
+.growthBox:after{
+content:"🎁";
+position:absolute;
+font-size:38px;
+left:36px;
+top:25px;
+}
+
+/* شكل Prime */
+
+.primeBox{
+width:120px;
+height:95px;
+border-radius:12px;
+background:linear-gradient(145deg,#e0aa3b,#684512);
+border:3px solid #f5d273;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+}
+
+.primeIcon{
+width:48px;
+height:48px;
+border-radius:50%;
+background:linear-gradient(#fff0a0,#bd841d);
+border:3px solid #ffe58a;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:23px;
+font-weight:bold;
+color:#4b320b;
+}
+
+.primeText{
+font-size:14px;
+font-weight:bold;
+margin-top:5px;
+}
+
+.body{
+padding:13px;
+}
+
+.badge{
+display:inline-block;
+background:#5b5228;
+color:#ffe05b;
+padding:5px 9px;
+border-radius:8px;
+font-size:12px;
+}
+
+.title{
+font-size:16px;
+font-weight:bold;
+margin-top:9px;
+line-height:1.5;
+}
+
+.amount{
+color:#ffc52b;
+font-size:17px;
+font-weight:bold;
+margin-top:6px;
+}
+
+.price{
+font-size:20px;
+font-weight:bold;
+margin-top:7px;
+}
+
+.buy{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:0;
+border-radius:11px;
+background:linear-gradient(135deg,#13baf4,#087ff0);
+color:#fff;
+font-size:16px;
+font-weight:bold;
+}
+
+.payment{
+background:#141d31;
+border:1px solid #293653;
+border-radius:15px;
+padding:15px;
+margin-top:18px;
+}
+
+.payment h3{
+color:#ffc52b;
+margin-top:0;
+}
+
+.payments{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:9px;
+}
+
+.pay{
+background:#1b253c;
+border:1px solid #37435d;
+border-radius:10px;
+padding:12px;
+text-align:center;
+}
+
+footer{
+text-align:center;
+padding:25px;
+color:#68748a;
+}
+
+@media(max-width:450px){
+
+.products{
+grid-template-columns:repeat(2,1fr);
+}
+
+.picture{
+height:125px;
+}
+
+.title{
+font-size:14px;
+}
+
+.price{
+font-size:17px;
+}
+
+.amount{
+font-size:15px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">⭐ STAR STORE</div>
+</header>
+
+<div class="tabs">
+
+<button class="active" onclick="showTab('uc',this)">
+💎 شحن UC
+</button>
+
+<button onclick="showTab('growth',this)">
+🎁 حزم الازدهار
+</button>
+
+<button onclick="showTab('prime',this)">
+👑 Prime & Plus
+</button>
+
+</div>
+
+<div class="container">
+
+<div class="player">
+
+<b>🎮 Player ID</b>
+
+<input
+id="playerID"
+type="text"
+placeholder="اكتب Player ID هنا">
+
+</div>
+
+
+<!-- ================= UC ================= -->
+
+<div id="uc" class="section active">
+
+<div class="products" id="ucList"></div>
+
+</div>
+
+
+<!-- ================= حزم الازدهار ================= -->
+
+<div id="growth" class="section">
+
+<div class="products" id="growthList"></div>
+
+</div>
+
+
+<!-- ================= PRIME ================= -->
+
+<div id="prime" class="section">
+
+<div class="products" id="primeList"></div>
+
+</div>
+
+
+<!-- ================= الدفع ================= -->
+
+<div class="payment">
+
+<h3>💳 طرق الدفع</h3>
+
+<div class="payments">
+
+<div class="pay">Vodafone Cash</div>
+<div class="pay">Orange Cash</div>
+<div class="pay">Etisalat Cash</div>
+<div class="pay">WE Pay</div>
+<div class="pay">InstaPay</div>
+<div class="pay">Fawry</div>
+<div class="pay">تحويل بنكي</div>
+<div class="pay">بطاقة بنكية</div>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+STAR STORE © 2026
+</footer>
+
+
+<script>
+
+/* =================================================
+   أسعار UC
+   تقدر تغير السعر من الرقم الثاني
+================================================= */
+
+const UC = [
+
+["60 UC","60"],
+["325 UC","280"],
+["660 UC","550"],
+["1800 UC","1500"],
+["3850 UC","2500"],
+["8100 UC","6000"],
+["16200 UC","11000"],
+["24300 UC","18000"],
+["32400 UC","22000"],
+["40500 UC","28000"],
+["48600 UC","32000"],
+["81000 UC","60000"]
+
+];
+
+
+/* =================================================
+   حزم الازدهار
+   3 باقات فقط
+================================================= */
+
+const GROWTH = [
+
+["حزمة الشراء الأول","60"],
+
+["حزمة ترقية موارد الأسلحة النارية","160"],
+
+["حزمة الشعار الخرافي","280"]
+
+];
+
+
+/* =================================================
+   Prime & Plus
+================================================= */
+
+const PRIME = [
+
+["Prime Plus - شهر","419.90"],
+["Prime Plus - 3 أشهر","1259.70"],
+["Prime Plus - 6 أشهر","2519.40"],
+["Prime Plus - 12 شهر","5038.80"],
+
+["Prime - شهر","41.99"],
+["Prime - 3 أشهر","125.97"],
+["Prime - 6 أشهر","251.94"],
+["Prime - 12 شهر","503.88"]
+
+];
+
+
+/* إنشاء UC */
+
+UC.forEach(item=>{
+
+document.getElementById("ucList").innerHTML += `
+
+<div class="card">
+
+<div class="picture">
+
+<div class="uc">
+
+<div class="uccoin u1">UC</div>
+<div class="uccoin u2">UC</div>
+<div class="uccoin u3">UC</div>
+
+</div>
+
+</div>
+
+<div class="body">
+
+<div class="badge">PUBG MOBILE</div>
+
+<div class="title">${item[0]}</div>
+
+<div class="amount">${item[0]}</div>
+
+<div class="price">EGP ${item[1]}</div>
+
+<button class="buy"
+onclick="buy('${item[0]}','${item[1]}')">
+
+🛒 شراء الآن
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+/* إنشاء حزم الازدهار */
+
+GROWTH.forEach(item=>{
+
+document.getElementById("growthList").innerHTML += `
+
+<div class="card">
+
+<div class="picture">
+
+<div class="growthBox"></div>
+
+</div>
+
+<div class="body">
+
+<div class="badge">حزم الازدهار</div>
+
+<div class="title">${item[0]}</div>
+
+<div class="amount">Growthgift</div>
+
+<div class="price">EGP ${item[1]}</div>
+
+<button class="buy"
+onclick="buy('${item[0]}','${item[1]}')">
+
+🛒 شراء الآن
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+/* إنشاء Prime */
+
+PRIME.forEach(item=>{
+
+document.getElementById("primeList").innerHTML += `
+
+<div class="card">
+
+<div class="picture">
+
+<div class="primeBox">
+
+<div class="primeIcon">P</div>
+
+<div class="primeText">
+PRIME
+</div>
+
+</div>
+
+</div>
+
+<div class="body">
+
+<div class="badge">Prime</div>
+
+<div class="title">${item[0]}</div>
+
+<div class="amount">PUBG PRIME</div>
+
+<div class="price">EGP ${item[1]}</div>
+
+<button class="buy"
+onclick="buy('${item[0]}','${item[1]}')">
+
+🛒 شراء الآن
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+/* تغيير الأقسام */
+
+function showTab(id,button){
+
+document
+.querySelectorAll(".section")
+.forEach(section=>{
+section.classList.remove("active");
+});
+
+document
+.getElementById(id)
+.classList.add("active");
+
+document
+.querySelectorAll(".tabs button")
+.forEach(btn=>{
+btn.classList.remove("active");
+});
+
+button.classList.add("active");
+
+}
+
+
+/* زر الشراء */
+
+function buy(product,price){
+
+const id =
+document
+.getElementById("playerID")
+.value
+.trim();
+
+if(!id){
+
+alert("من فضلك اكتب Player ID أولاً");
+
+return;
+
+}
+
+alert(
+"المنتج: "+product+
+"\nالسعر: "+price+" جنيه"+
+"\nPlayer ID: "+id
+);
+
+}
+
+</script>
+
+</body>
+</html>
